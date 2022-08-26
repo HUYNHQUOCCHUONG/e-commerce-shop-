@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/cssaddsp.css">
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBA0K7FMV0pgJf5TNLzHRqtvnSflq7TeXw",
+            authDomain: "asmfn-1a80a.firebaseapp.com",
+            databaseURL: "https://asmfn-1a80a-default-rtdb.firebaseio.com",
+            projectId: "asmfn-1a80a",
+            storageBucket: "asmfn-1a80a.appspot.com",
+            messagingSenderId: "610145925520",
+            appId: "1:610145925520:web:1cb3dde0624294da079b15",
+            measurementId: "G-BMBCF81567"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <div id="mySidenav" class="sidenav">
+        <p class="logo"><span>QC</span>-Project</p>
+        <a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+        <a href="dssanpham.html" class="icon-a"><i class='bx bxs-shopping-bag'></i></i> &nbsp;&nbsp;Danh sách sản
+            phẩm</a>
+        <a href="dsdanhmuc.html" class="icon-a"><i class='bx bxs-category'></i></i> &nbsp;&nbsp;Danh mục</a>
+        <a href="oder.html" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Đơn hàng</a>
+        <a href="#" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Inventory</a>
+        <a href="#" class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
+        <a href="#" class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Tasks</a>
+    </div>
+    <main>
+        <div class="table-data">
+            <form action="" method="POST" class="form-add">
+                <h3 class="text-center" style="color: white;">SỬA SẢN PHẨM</h3>
+                <div class="form-group">
+                    <label class="" for="tensp">Tên loại</label>
+                    <select id="cate_id" class="form-control">
+                        <option value="1">Điện thoại</option>
+                        <option value="2">Lap top</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="">Tên sản phẩm</label>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="">Giá sản phẩm</label>
+                    <input type="number" id="price" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="">Hình sản phẩm</label>
+                    <input type="text" id="images" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="">Mô tả</label>
+                    <textarea id="detail" type="text" cols="30" rows="5" class="form-control"
+                        style="background: #6c757d;color: white;"></textarea>
+                </div>
+                <center>
+                    <div class="button">
+                        <button type="button" class="btn" id="btnLuu" onclick="updateProducts()">CẬP NHẬT SẢN
+                            PHẨM</button>
+                </center>
+        </div>
+        </form>
+        </div>
+    </main>
+
+    </div>
+</body>
+
+</html>
+<script>
+    //Sửa
+    const updateProducts = () => {
+        var cate_id = document.querySelector("#cate_id");
+        var name = document.querySelector("#name");
+        var images = document.querySelector("#images");
+        var price = document.querySelector("#price");
+        var detail = document.querySelector("#detail");
+
+        let data = {
+            cate_id: cate_id.value,
+            name: name.value,
+            images: images.value,
+            price: price.value,
+            detail: detail.value,
+        };
+        fetch(`https://asmfn-1a80a-default-rtdb.firebaseio.com/products/${id}.json`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                alert('Sửa thành công!')
+                document.location = "dssanpham.html"
+                console.log("Success:", data);
+            })
+            .catch((error) => {
+                alert('Lỗi!')
+                console.error("Error:", error);
+            });
+    };
+</script>
+<script>
+    let params = new URLSearchParams(location.search);
+    let id = params.get("id");
+    console.log(id);
+</script>
+<script>
+    let renderPD = async () => {
+        const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/products.json");
+        const data = await response.json();
+        for (const key in data) {
+            if (id == key) {
+                console.log(key);
+                document.querySelector("#name").value = data[key].name;
+                document.querySelector("#images").value = data[key].images;
+                document.querySelector("#price").value = data[key].price;
+                document.querySelector("#detail").value = data[key].detail;
+                document.querySelector("#cate_id").value = data[key].cate_id;
+                break;
+            }
+        }
+    }
+    renderPD();
+</script>
+<script>
+    var Up_id = document.querySelector('#cate_id');
+    let render_up = async () => {
+        const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/categories.json");
+        const data = await response.json();
+        Up_id.innerHTML = '';
+        Object.keys(data).forEach((key) => {
+            const row = data[key];
+            cate_id.innerHTML += `<option value="${row.id}">${row.name}</option>`
+        });
+    }
+    render_up();
+</script>

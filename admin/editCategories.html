@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/cssaddsp.css">
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBA0K7FMV0pgJf5TNLzHRqtvnSflq7TeXw",
+            authDomain: "asmfn-1a80a.firebaseapp.com",
+            databaseURL: "https://asmfn-1a80a-default-rtdb.firebaseio.com",
+            projectId: "asmfn-1a80a",
+            storageBucket: "asmfn-1a80a.appspot.com",
+            messagingSenderId: "610145925520",
+            appId: "1:610145925520:web:1cb3dde0624294da079b15",
+            measurementId: "G-BMBCF81567"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <div id="mySidenav" class="sidenav">
+        <p class="logo"><span>QC</span>-Project</p>
+        <a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+        <a href="dssanpham.html" class="icon-a"><i class='bx bxs-shopping-bag'></i></i> &nbsp;&nbsp;Danh sách sản
+            phẩm</a>
+        <a href="dsdanhmuc.html" class="icon-a"><i class='bx bxs-category'></i></i> &nbsp;&nbsp;Danh mục</a>
+        <a href="oder.html" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Đơn hàng</a>
+        <a href="#" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Inventory</a>
+        <a href="#" class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
+        <a href="#" class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Tasks</a>
+    </div>
+    <main>
+        <div class="table-data">
+            <form action="" method="POST" class="form-add">
+                <h3 class="text-center" style="color: white;">SỬA DANH MỤC</h3>
+                <div class="form-group">
+                    <label class="form-group" for="tensp">ID<label>
+                            <input type="text" class="form-control" placeholder="Auto" disabled>
+                </div>
+                <div class="form-group">
+                    <label class="">Tên danh mục</label>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <center>
+                    <div class="button">
+                        <button type="button" class="btn" id="btnLuu">CẬP NHẬT DANH MỤC</button>
+                </center>
+        </div>
+        </form>
+        </div>
+    </main>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+    let params = new URLSearchParams(location.search);
+    let id = params.get("id");
+    btnLuu = document.querySelector("#btnLuu");
+    btnLuu.onclick = function () {
+        URL = `https://asmfn-1a80a-default-rtdb.firebaseio.com/categories/${id}.json`;
+        dm = {
+            name: document.querySelector("#name").value.trim(),
+        }
+        console.log("dm =", dm);
+        options = {
+            method: "put",
+            body: JSON.stringify(dm),
+            headers: { 'Content-Type': 'application/json' }
+        }
+        fetch(URL, options).then(res => res.json())
+            .then(data => {
+                console.log("data =", data);
+                document.location = "dsdanhmuc.html";
+                alert("Đã cập nhật danh mục !")
+            })
+    }
+
+</script>
+
+<script>
+    var listLSP = document.querySelector('#cate_id');
+    let render = async() => {
+        const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/categories.json");
+        const data = await response.json();
+        listLSP.innerHTML = '';
+        Object.keys(data).forEach((key) => {
+            const row = data[key];
+            listLSP.innerHTML += `
+            <option value="${row.id}">${row.name}</option>
+        `;
+        });
+    }
+    render();
+</script>
+<script>
+    URL = `https://asmfn-1a80a-default-rtdb.firebaseio.com/categories/${id}.json`
+    fetch(URL).then(res => res.json())
+        .then(motSP => {
+            // console.log(motSP); 
+            document.querySelector("#name").value = motSP.name;
+        })
+</script>

@@ -1,0 +1,113 @@
+<!Doctype HTML>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+
+<body>
+  <div id="mySidenav" class="sidenav">
+    <p class="logo"><span>QC</span>-Project</p>
+    <a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+    <a href="dssanpham.html" class="icon-a"><i class='bx bxs-shopping-bag'></i></i> &nbsp;&nbsp;Danh sách sản phẩm</a>
+    <a href="dsdanhmuc.html" class="icon-a"><i class='bx bxs-category'></i></i> &nbsp;&nbsp;Danh mục</a>
+    <a href="oder.html" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Đơn hàng</a>
+    <a href="#" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Inventory</a>
+    <a href="#" class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
+    <a href="#" class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Tasks</a>
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+      </div>
+
+      <div class="col-div-6">
+        <div class="profile">
+
+          <img src="images/2.jpg" class="pro-img" />
+          <p>QUỐC CHƯƠNG <span>COPPY & PASTE</span></p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+    <div class="clearfix"></div>
+    <br /><br />
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+          <p>Danh sách danh mục</p>
+          <br>
+          <table class="danhsachsp" id="danhsachsp">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
+<script>
+  var table = document.querySelector('#danhsachsp tbody');
+  let render = async () => {
+    const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/orders.json");
+    const data = await response.json();
+    table.innerHTML = '';
+    Object.keys(data).forEach((key) => {
+      const row = data[key];
+      table.innerHTML += `
+              <tr>
+              <td>${row.id}</td>
+              <td>${row.customer_name}</td>
+              <td>${row.customer_email}</td>
+              <td>${row.customer_phone}</td>
+              <td>${row.create_date}</td>
+              <td>${row.status}</td>
+              <td>
+                <a href=""><i class='bx bxs-message-square-edit' style="font-size:25px;color:red;margin:auto 0px";></i></a>
+                <a href="" onclick="xoaSP('${key}')"><i class='bx bxs-trash' style="font-size:25px;color:red;" ;></i></a>
+              </td>
+        </tr>
+                `
+    });
+  }
+  render();
+</script>
+<script>
+  //delete san pham
+  function xoaSP(od) {
+    const hoi = confirm("Bạn đang muốn xóa hả ?");
+    if (hoi == false) return;
+    URL = `https://asmfn-1a80a-default-rtdb.firebaseio.com/orders/${od}.json`;
+    fetch(URL, { method: "delete" }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+        alert("Đã xóa thành công !");
+        document.location = "oder.html";
+      })
+
+    // alert(id);
+  }
+</script>

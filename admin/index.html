@@ -1,0 +1,111 @@
+<!Doctype HTML>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+
+<body>
+  <div id="mySidenav" class="sidenav">
+    <p class="logo"><span>QC</span>-Project</p>
+    <a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
+    <a href="dssanpham.html" class="icon-a"><i class='bx bxs-shopping-bag'></i></i> &nbsp;&nbsp;Danh sách sản phẩm</a>
+    <a href="dsdanhmuc.html" class="icon-a"><i class='bx bxs-category'></i></i> &nbsp;&nbsp;Danh mục</a>
+    <a href="oder.html" class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Đơn hàng</a>
+    <a href="#" class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Inventory</a>
+    <a href="#" class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
+    <a href="#" class="icon-a"><i class="fa fa-list-alt icons"></i> &nbsp;&nbsp;Tasks</a>
+  </div>
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+      </div>
+
+      <div class="col-div-6">
+        <div class="profile">
+
+          <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/291945834_1739071673100154_755864848180276089_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=YOAszKmFe14AX9VIC16&_nc_ht=scontent.fdad1-3.fna&oh=00_AT8EahhJSD8ae2iiCH0yUw2yAjFI2qoTQMPfl83ZKvL8lA&oe=630D6B6A" class="pro-img" />
+          <p>QUỐC CHƯƠNG <span>COPPY & PASTE</span></p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+
+    <div class="col-div-3">
+      <div class="box">
+        <p>67<br /><span>Customers</span></p>
+        <i class="fa fa-users box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>88<br /><span>Projects</span></p>
+        <i class="fa fa-list box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>99<br /><span>Orders</span></p>
+        <i class="fa fa-shopping-bag box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>78<br /><span>Tasks</span></p>
+        <i class="fa fa-tasks box-icon"></i>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br /><br />
+    <div class="col-div-8">
+      <div class="box-8">
+        <div class="content-box">
+          <p>Đơn hàng đặt gần đây<span>Sell All</span></p>
+          <br />
+          <table class="danhsachsp" id="danhsachsp">
+            <tbody>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
+<script>
+ var table = document.querySelector('#danhsachsp tbody');
+  let render = async () => {
+    const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/orders.json");
+    const data = await response.json();
+    table.innerHTML = '';
+    Object.keys(data).forEach((key) => {
+      const row = data[key];
+      table.innerHTML += `
+              <tr>
+              <td>${key}</td>
+              <td>${row.customer_name}</td>
+              <td>${row.customer_email}</td>
+              <td>${row.status}</td>
+        </tr>
+                `
+    });
+  }
+  render();
+</script>

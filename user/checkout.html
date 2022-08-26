@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/833px-Apple_logo_black.svg.png" width="50px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html">Home</a></li>
+                        <!-- <li><a href="products.html">Products</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="account.html">Account</a></li> -->
+                    </ul>
+                </nav>
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+                <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h1>Give Your Workout<br> A New Style!</h1>
+                    <p>Success ins't always about greatness. It's about
+                        consistency. Consistent <br>hard work gains success. Greatness
+                        will come. </p>
+                    <a href="" class="btn">Explore Now &#8594;</a>
+                </div>
+                <div class="col-2">
+                    <img src="https://cdn.tgdd.vn/2022/04/banner/800-200-800x200-98.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding: 50px;">
+        <div class="col-75">
+            <div class="container" >
+                <form>
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Billing Address</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="ChuongJake">
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="text" id="email" name="email" placeholder="chuong@example.com">
+                            <label for="adr" id=""><i class="fa fa-address-card-o"></i> Address</label>
+                            <input type="text" id="address" name="address" placeholder="Thon 3 Nam Yang - Dak Doa">
+                            <label for="city"><i class="fa fa-institution"></i> Note</label>
+                            <textarea name="" id="note" cols="142" rows="5"></textarea>
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="state">Phone</label>
+                                    <input type="text" id="dienthoai" name="state" placeholder="0384534...">
+                                </div>
+                            </div>
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                            </div>
+                        </div>
+                        <div class="col-25">
+                            <div class="container" id="tblcart">
+                                <h4>Giỏ hàng <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="btnDatHang" type="button">Dat hang</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <div class="footer">
+        <div class="container" style="background: black;">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone</p>
+                    <div class="app-logo">
+                        <img src="images/play-store.png">
+                        <img src="images/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo-white.png">
+                    <p>Our Purpose Is To Sustainably Make the Pleasure and
+                        Benefits of Sports Accessible to the Many</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="Copyright">Copyright 2022 - By QuocChuong COPPY & PASTE</p>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    //lay dsdm
+    var table1 = document.querySelector('#MenuItems');
+    let renderr = async () => {
+        const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/categories.json");
+        const data = await response.json();
+        // console.log(data);
+        table1.innerHTML = '';
+        Object.keys(data).forEach((key) => {
+            const cate = data[key];
+            // console.log(cate);
+            table1.innerHTML += `
+        <li><a href="index.html">${cate.name}</a></li>`
+        });
+    }
+    renderr();
+</script>
+<script>
+    document.querySelector("#btnDatHang").onclick = function () {
+        fname = document.querySelector("#fname").value.trim();
+        address = document.querySelector("#address").value.trim();
+        email = document.querySelector("#email").value.trim();
+        dienthoai = document.querySelector("#dienthoai").value.trim();
+        note = document.querySelector("#note").value;
+        if (fname == "") { alert("Chua nhap  ten "); return; }
+        if (address == "") { alert("Chua nhap ho ten "); return; }
+        if (email == "") { alert("Chua nhap email "); return; }
+        if (dienthoai == "") { alert("Chua nhap sdt "); return; }
+
+        var donhang = {
+            "customer_name": fname,
+            "customer_addres": address,
+            "customer_email": email,
+            "customer_phone": dienthoai,
+            "create_date": new Date().toISOString().slice(0, 10),
+            " description": note,
+            "status": "Chờ xác nhận"
+        }
+        url = "https://asmfn-1a80a-default-rtdb.firebaseio.com/orders.json";
+        options = {
+            method: "post",
+            body: JSON.stringify(donhang),
+            headers: { "content-type": 'application/json' }
+        }
+        fetch(url, options).then(res => res.json())
+            .then(data => {
+                order_id = data.id;
+                LuuChiTietDonHang(order_id);
+                console.log(data);
+            })
+        //alert("chao ban");
+    }
+</script>
+<script>
+    function LuuChiTietDonHang(order_id) {
+        let cart = JSON.parse(localStorage.getItem("cart"))
+        cart.forEach(sp => {
+            let objSP = {
+                "oder_id": order_id,
+                "product_id": sp.id,
+                "quantali": sp.quantily,
+                "unti_price": sp.price
+            }
+            url = "https://asmfn-1a80a-default-rtdb.firebaseio.com/orders_detail.json";
+            options = {
+                method: "post",
+                body: JSON.stringify(objSP),
+                headers: { "content-type": 'application/json' }
+            }
+            fetch(url, options).then(res => res.json())
+                .then(d => {
+
+                })
+        })
+        alert("Đặt đơn hàng thành công ! ");
+    }
+</script>
+<script>
+    //hiện giỏ hàng
+    var cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) cart.forEach((sp, index) => {
+        document.querySelector("#tblcart").innerHTML += `
+                <p>
+                    <a href="#">${sp.name}</a> 
+                    <span class="price">${sp.price}</span>
+                </p>
+                <hr>
+        `
+    })
+</script>

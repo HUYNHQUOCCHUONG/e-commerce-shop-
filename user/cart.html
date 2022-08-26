@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printd T-Shirt - RedStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btn {
+            background-color: #ff523b;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 50%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/833px-Apple_logo_black.svg.png" width="50px" height="50px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+    </div>
+
+    <!-- -----------------cart item details------------------- -->
+    <div class="small-container cart-page">
+        <table id="tblcart">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <!-- Hienthisanpham -->
+
+        </table>
+
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="tongtien"> VNĐ</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+    <center>
+    <a href="checkout.html"><button class="btn">Checkout</button></a>
+</center>
+
+
+    <!-- ------------footer----------- -->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone</p>
+                    <div class="app-logo">
+                        <img src="images/play-store.png">
+                        <img src="images/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo-white.png">
+                    <p>Our Purpose Is To Sustainably Make the Pleasure and
+                        Benefits of Sports Accessible to the Many</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="Copyright">Copyright 2020 - By QuocHuy</p>
+        </div>
+        <!-- ------------------- js for toggle menu-------------- -->
+</body>
+</html>
+<script>
+    //lay dsdm
+    var table1 = document.querySelector('#MenuItems');
+    let renderr = async () => {
+        const response = await fetch("https://asmfn-1a80a-default-rtdb.firebaseio.com/categories.json");
+        const data = await response.json();
+        // console.log(data);
+        table1.innerHTML = '';
+        Object.keys(data).forEach((key) => {
+            const cate = data[key];
+            // console.log(cate);
+            table1.innerHTML += `
+        <li><a href="index.html">${cate.name}</a></li>`
+        });
+    }
+    renderr();
+</script>
+<script>
+    var cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) cart.forEach((sp, index) => {
+        document.querySelector("#tblcart").innerHTML += `
+        <tr>
+                <td>
+                    <div class="cart-info">
+                        <img src="${sp.images}">
+                        <div>
+                            <p>${sp.name}</p>
+                            <small class="gia">Price: ${sp.price}</small>
+                            <br>
+                            <a href="" onclick="xoa('${sp.id}', this)">Remove</a>
+                        </div>
+                    </div>
+                </td>
+                <td><input type="number" value="${sp.quatity}"
+                     onkeyup="tinhtien(${sp.price}, this.value, ${index})"> </td>
+                <td><span class="tien">${sp.quatity * sp.price} </span></td>
+            </tr>
+            `
+    })
+</script>
+<script>
+    function xoa(id, e) {
+    
+        for (const key in cart) {
+            if (cart[key].id == id) {
+                e.closest("tr").remove();
+                cart.splice(key, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                break;
+            }
+        }
+    }
+</script>
+<script>
+    //tinhtienkhidoisoluong
+    function tinhtien(gia, soluong, i) {
+        tien = gia * soluong;
+        document.getElementsByClassName("tien")[i].innerText = tien;
+        tinhtongtien()
+    }
+    function tinhtongtien() {
+        arrTien = document.getElementsByClassName("tien");
+        tongtien = 0;
+        for (let t of arrTien) {
+            tongtien += parseInt(t.innerText);
+        }
+        document.querySelector("#tongtien").innerText = tongtien;
+    }
+</script>
